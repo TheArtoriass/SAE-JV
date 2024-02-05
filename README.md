@@ -3,6 +3,7 @@
 Installation et Lancement Rapide
 Prérequis :
 - Assurez-vous d’avoir Python installé sur votre ordinateur.
+  
 BIBLIOTHEQUES :
 - pygame 
 - random 
