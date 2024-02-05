@@ -1,8 +1,5 @@
-import pygame
 from Joueur import Joueur, Joueur1, Joueur2, Joueur3, Joueur4, Joueur5
-import tkinter.simpledialog
-import sys
-import os
+import tkinter.simpledialog,sys,os,pygame
 from PIL import Image, ImageTk
 
 

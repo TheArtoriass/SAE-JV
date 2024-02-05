@@ -1,9 +1,5 @@
-import random
-import pygame
+import random,os,sys,pygame
 from Objet import Objet, liste_objets
-import os
-import sys
-
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                    Systèmes de gestion d'événements

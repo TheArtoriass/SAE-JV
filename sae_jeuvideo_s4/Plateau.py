@@ -1,5 +1,4 @@
-import pygame
-import os
+import pygame,os
 from Objet import liste_objets
 from evenement import CarteAleatoire
 from evenement import  rencontre_amicale, maladie, tresor_enfoui, vautour, raccourci, blessure

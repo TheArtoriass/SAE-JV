@@ -1,6 +1,4 @@
-import pygame
-import random
-import os
+import random,os,pygame
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,40 +142,75 @@ class Combat:
 
     def afficher_message_fin_combat(self, message, ennemi):
         try:
-            # Choisir l'image de fond en fonction de l'ennemi
-            if ennemi == "Mutant":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'combat_golem.jpg')
-            elif ennemi == "Loup infecté":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'combat_loup.jpg')
-            elif ennemi == "Rat infecté":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'combat_rat.jpg')
-            elif ennemi == "Infecté":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'combat_zombie.jpg')
-            else:
-                image_path = os.path.join(self.repertoire_script, 'img','fondjeu', 'fondjeu_complet.jpg')
-                print("rien")
-
             # Obtenir les dimensions de la fenêtre
             infoEcran = pygame.display.Info()
             LARGEUR_ECRAN, HAUTEUR_ECRAN = infoEcran.current_w, infoEcran.current_h
 
-            # Charger l'image de fond et la redimensionner pour qu'elle s'adapte à la taille de la fenêtre
-            background = pygame.image.load(image_path)
-            background = pygame.transform.scale(background, (LARGEUR_ECRAN, HAUTEUR_ECRAN))
+            # Charger l'image de fond par défaut et la redimensionner pour qu'elle s'adapte à la taille de la fenêtre
+            image_path_default = os.path.join(self.repertoire_script, 'img','fondjeu', 'fondjeu_complet.jpg')
+            background_default = pygame.image.load(image_path_default)
+            background_default = pygame.transform.scale(background_default, (LARGEUR_ECRAN, HAUTEUR_ECRAN))
 
-            self.fenetre.blit(background, (0, 0))    
+            self.fenetre.blit(background_default, (0, 0))
+            
+             # Position de départ de l'image de fond
+            x_background = 0
+
+            # Vitesse de défilement
+            background_speed = 1.5
+
+
+            # Choisir l'image de fond en fonction de l'ennemi
+            if ennemi == "Mutant":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_golem.jpg')
+            elif ennemi == "Loup infecté":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_loup.jpg')
+            elif ennemi == "Rat infecté":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_rat.jpg')
+            elif ennemi == "Infecté":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_zombie.jpg')
+            else:
+                image_path = None
+
+            if image_path is not None:
+                # Charger l'image de l'ennemi et la redimensionner pour qu'elle s'adapte à une petite fenêtre
+                background_ennemi = pygame.image.load(image_path)
+                background_ennemi = pygame.transform.scale(background_ennemi, (LARGEUR_ECRAN // 2, HAUTEUR_ECRAN // 1.2))
+
+                # Positionner la petite fenêtre au centre de l'écran
+                position_ennemi = ((LARGEUR_ECRAN - LARGEUR_ECRAN // 2) // 2, (HAUTEUR_ECRAN - HAUTEUR_ECRAN // 1.2) // 2)
+                self.fenetre.blit(background_ennemi, position_ennemi)
+
             chemin_police = os.path.join(self.repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
             ma_police = pygame.font.Font(chemin_police, 28)
             noir = (0, 0, 0)  # Couleur du texte en noir
 
             texte_message = ma_police.render(message, True, noir)
             rect_texte = texte_message.get_rect()
-            rect_texte.center = (LARGEUR_ECRAN // 2, HAUTEUR_ECRAN * 4 // 5)  # Positionner le texte plus en bas
-            self.fenetre.blit(texte_message, rect_texte)
+            rect_texte.center = (LARGEUR_ECRAN // 2, HAUTEUR_ECRAN * 4.1 // 5)  # Positionner le texte plus en bas
+            temps_affichage = pygame.time.get_ticks()  # Obtenir le temps actuel
+
+            while pygame.time.get_ticks() - temps_affichage < 3500:  # Boucler pendant 3,5 seconde
+                # Déplacer l'image de fond
+                x_background -= background_speed
+
+                # Si l'image est complètement défilée hors de l'écran, réinitialiser sa position
+                if x_background <= -LARGEUR_ECRAN:
+                    x_background = 0
+
+                # Dessiner l'image de fond avec répétition
+                self.fenetre.blit(background_default, (x_background, 0))
+                self.fenetre.blit(background_default, (x_background + LARGEUR_ECRAN, 0))
+
+                # Dessiner l'image de l'ennemi et le texte
+                if image_path is not None:
+                    self.fenetre.blit(background_ennemi, position_ennemi)
+                self.fenetre.blit(texte_message, rect_texte)
+
+                pygame.display.flip()
 
 
-            pygame.display.flip()
-            pygame.time.delay(1500)      
+            self.fenetre.blit(texte_message, rect_texte)  
         except Exception as e:
             print(f"Une erreur est survenue lors de l'affichage du message de fin de combat : {e}")
             raise

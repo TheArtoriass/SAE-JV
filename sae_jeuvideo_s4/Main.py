@@ -1,7 +1,5 @@
-import pygame
 from Plateau import Plateau, chemin
-import random
-import sys
+import random,sys,pygame
 from Interface import choisir_personnages, afficher_resultat_de , message_interface, end_game , pause
 from Ennemis import liste_ennemis 
 from Combat import Combat
@@ -10,6 +8,7 @@ from Objet import liste_objets
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                               PROGRAMME MAIN POUR LANCER LE JEU  
 #   
+#   2023-2024
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def lancer_de():
