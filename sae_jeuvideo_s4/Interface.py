@@ -21,7 +21,7 @@ largeur_plateau = LARGEUR_ECRAN // taille_case
 hauteur_plateau = HAUTEUR_ECRAN // taille_case
 
 # Créer une fenêtre en plein écran
-fenetre = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN), pygame.FULLSCREEN)
+fenetre = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
 
 # Obtenir le répertoire du script actuel
 repertoire_script = os.path.dirname(__file__)
