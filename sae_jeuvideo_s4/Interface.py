@@ -181,21 +181,19 @@ def choisir_classe():
             
             total_points = 19
             points_restants = total_points
+            
+            force = tkinter.simpledialog.askinteger("Force", f"Entrez le nombre de points de force (1 à {points_restants - 2}):", minvalue=1, maxvalue=points_restants - 2)
+            points_restants -= force
 
-            while points_restants > 0:
-                force = tkinter.simpledialog.askinteger("Force", f"Entrez le nombre de points de force (1 à {points_restants - 2}):", minvalue=1, maxvalue=points_restants - 2)
-                points_restants -= force
-                if points_restants > 1:  # S'assurer qu'il reste au moins 1 point pour la vie et l'agilité
-                    vie = tkinter.simpledialog.askinteger("Vie", f"Entrez le nombre de points de vie (1 à {points_restants - 1}):", minvalue=1, maxvalue=points_restants - 1)
-                    points_restants -= vie
-                if points_restants > 0:  # S'assurer qu'il reste au moins 1 point pour l'agilité
-                    agilite = tkinter.simpledialog.askinteger("Agilité", f"Entrez le nombre de points d'agilité (1 à {points_restants}):", minvalue=1, maxvalue=points_restants)
-                    points_restants -= agilite
+            vie = tkinter.simpledialog.askinteger("Vie", f"Entrez le nombre de points de vie (1 à {points_restants - 1}):", minvalue=1, maxvalue=points_restants - 1)
+            points_restants -= vie
+
+            agilite = points_restants  
                 
             return lambda x, y, taille_case,pseudo,skin_path: Joueur5(force, vie, agilite, x, y, taille_case,pseudo,skin_path)
             
         else:
-            return pygame.quit() ,sys.exit()   # Quitter le jeu
+            return pygame.quit() ,sys.exit()   
     except Exception as e:
         print(f"Une erreur est survenue lors du choix de la classe : {e}")
         raise
