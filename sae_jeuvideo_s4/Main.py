@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     for ennemi in liste_ennemis:
         position = random.choice(chemin)
-        while position in cases_occupees:  
+        while position in cases_occupees or any(position[:2] == evenement[:2] for evenement in plateau.carte):  
             position = random.choice(chemin)
         ennemi.x, ennemi.y = position
         cases_occupees.append(position) 
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     for objet in liste_objets:
         position = random.choice(chemin)
-        while position in cases_occupees: 
+        while position in cases_occupees or any(position[:2] == evenement[:2] for evenement in plateau.carte): 
             position = random.choice(chemin)
         objet.x, objet.y = position
         cases_occupees.append(position)
