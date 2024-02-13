@@ -193,6 +193,6 @@ if __name__ == "__main__":
         fenetre.fill(BLANC)
         fenetre.blit(plateau.dessiner(), (0, 0))
         #On affiche les différentes indications sur la fenêtre pygame
-        message_interface(joueur_index,de_restant)
+        message_interface(joueur_index,de_restant,joueur_actif)
 
 pygame.quit()

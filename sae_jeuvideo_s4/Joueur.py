@@ -250,6 +250,10 @@ class Joueur1(Joueur):
             taille_case (int): La taille d'une case du plateau.
         """
         super().__init__('Force', 4, 12, 3, x_depart, y_depart, skin_path,taille_case,pseudo)
+        self.skin_path = skin_path
+        
+    def get_skin_path(self):
+        return self.skin_path
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class Joueur2(Joueur):
@@ -264,6 +268,10 @@ class Joueur2(Joueur):
             taille_case (int): La taille d'une case du plateau.
         """
         super().__init__('Vie', 3, 15, 2, x_depart, y_depart, skin_path,taille_case,pseudo)
+        self.skin_path = skin_path
+        
+    def get_skin_path(self):
+        return self.skin_path
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class Joueur3(Joueur):
@@ -278,6 +286,10 @@ class Joueur3(Joueur):
             taille_case (int): La taille d'une case du plateau.
         """
         super().__init__('Polyvalent', 6, 8, 6, x_depart, y_depart,skin_path,taille_case,pseudo)
+        self.skin_path = skin_path
+        
+    def get_skin_path(self):
+        return self.skin_path
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class Joueur4(Joueur):
@@ -292,6 +304,10 @@ class Joueur4(Joueur):
             taille_case (int): La taille d'une case du plateau.
         """
         super().__init__('Agilité', 3, 12, 4, x_depart, y_depart, skin_path,taille_case,pseudo)
+        self.skin_path = skin_path
+        
+    def get_skin_path(self):
+        return self.skin_path
         
 class Joueur5(Joueur):
     """
@@ -308,3 +324,7 @@ class Joueur5(Joueur):
             taille_case (int): La taille d'une case du plateau.
         """
         super().__init__('Personnalisable',force, vie, agilite, x_depart, y_depart, skin_path,taille_case,pseudo)
+        self.skin_path = skin_path
+        
+    def get_skin_path(self):
+        return self.skin_path

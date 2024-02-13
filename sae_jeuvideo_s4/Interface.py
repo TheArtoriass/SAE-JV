@@ -260,7 +260,7 @@ def choisir_personnages():
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-def message_interface(joueur_index,de_restant):
+def message_interface(joueur_index,de_restant,joueur_actif):
     """
     Affiche l'interface de jeu avec les informations du joueur actuel et le nombre de déplacements restants.
 
@@ -295,6 +295,14 @@ def message_interface(joueur_index,de_restant):
         message = font.render("Appuyez sur ESPACE pour lancer le dé", True, blanc_cassé)
         message_rect = message.get_rect(center=(largeur_plateau * taille_case // 2, 100))
         fenetre.blit(message, message_rect)
+        
+        # Charger l'image du skin du joueur actuel
+        skin_path = joueur_actif.get_skin_path()
+        if skin_path:  
+            joueur_skin = pygame.image.load(skin_path)
+            joueur_skin = pygame.transform.scale(joueur_skin, (45, 45))  
+            joueur_skin_rect = joueur_skin.get_rect(center=(largeur_plateau * taille_case // 2 - 712, 65))
+            fenetre.blit(joueur_skin, joueur_skin_rect)
 
         
         # Afficher des emojis flèches
