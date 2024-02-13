@@ -27,6 +27,7 @@ fenetre = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN))
 repertoire_script = os.path.dirname(__file__)
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 def choisir_skin():
     """
     Affiche une interface pour choisir un skin de personnage.
@@ -41,19 +42,30 @@ def choisir_skin():
 
         # Charger les images des skins
         skins = []
-        for i in range(1, 5):
-            chemin_image = os.path.join(repertoire_script, 'img', 'personne', f'Joueur{i}.jpeg')
+        # Obtenir le chemin du répertoire contenant les skins
+        repertoire_skins = os.path.join(repertoire_script, 'img', 'personne')
+        # Obtenir la liste des fichiers dans le répertoire des skins
+        fichiers = [f for f in os.listdir(repertoire_skins) if os.path.isfile(os.path.join(repertoire_skins, f)) and f.startswith('Joueur') and f.endswith('.jpeg')]
+
+        # Pour chaque fichier dans le répertoire des skins
+        for fichier in fichiers:
+            # Obtenir le chemin complet du fichier
+            chemin_image = os.path.join(repertoire_skins, fichier)
             image = Image.open(chemin_image)
             image = image.resize((100, 100), Image.ANTIALIAS)  # Redimensionner l'image
+            # Convertir l'image en format PhotoImage de tkinter
             photo = ImageTk.PhotoImage(image)
-            skins.append(photo)
+            # Ajouter l'image et le nom du fichier à la liste des skins
+            skins.append((photo, fichier))
 
         # Variable pour stocker le choix de l'utilisateur
         choix_skin = tkinter.StringVar()
 
         # Créer un bouton pour chaque skin
-        for i, skin in enumerate(skins, start=1):
-            bouton = tkinter.Radiobutton(fenetre_skin, image=skin, variable=choix_skin, value=f'Joueur{i}', indicatoron=0)
+        for skin, fichier in skins:
+            # Créer un bouton radio avec l'image du skin
+            bouton = tkinter.Radiobutton(fenetre_skin, image=skin, variable=choix_skin, value=fichier.replace('.jpeg', ''), indicatoron=0)
+            # Ajouter le bouton à la fenêtre
             bouton.pack(side=tkinter.LEFT)
 
         # Créer un bouton pour valider le choix
@@ -75,13 +87,14 @@ def choisir_skin():
         # Si l'utilisateur n'a pas choisi de skin, renvoyer None
         if not skin_choisi:
             return None
-            
+        
+        # Renvoyer le chemin complet du skin choisi
         return os.path.join(repertoire_script, 'img', 'personne', f'{skin_choisi}.jpeg')
     
     except Exception as e:
         print(f"Une erreur est survenue lors du choix du skin : {e}")
         raise
-
+    
 def afficher_resultat_de(resultat_de):
     """
     Affiche le résultat d'un lancer de dé dans la fenêtre Pygame.
