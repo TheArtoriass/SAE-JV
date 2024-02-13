@@ -271,14 +271,23 @@ def message_interface(joueur_index,de_restant):
     try:
         Jaune = (255, 255, 0)
         blanc_cassé = (223, 242, 255)
+        Noir = (0, 0, 0)
         
+        # Charger l'image du parchemin
+        image_parchemin = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'nom.png'))
+        image_parchemin = pygame.transform.scale(image_parchemin, (image_parchemin.get_width() * 1.1, image_parchemin.get_height() * 1.1))
+        image_parchemin_rect = image_parchemin.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 70))
+
+        # Afficher l'image du parchemin
+        fenetre.blit(image_parchemin, image_parchemin_rect)
+
         # Afficher le joueur actuel en haut de la fenêtre
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
-        font = pygame.font.Font(chemin_police, 36)
-        message_joueur = font.render(f"Joueur {joueur_index+1} joue", True, Jaune)
-        message_joueur_rect = message_joueur.get_rect(center=(largeur_plateau * taille_case // 2, 50))
-        fenetre.blit(message_joueur, message_joueur_rect)
+        font = pygame.font.Font(chemin_police, 25)
+        message_joueur = font.render(f"Joueur {joueur_index+1} joue", True, Noir)
+        message_joueur_rect = message_joueur.get_rect(center=(largeur_plateau * taille_case // 2- 550, 80))
         
+        fenetre.blit(message_joueur, message_joueur_rect)
         
         # Afficher un message "Appuyez sur ESPACE pour lancer le dé" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
