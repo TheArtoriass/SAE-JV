@@ -87,12 +87,12 @@ class Objet:
 
 liste_objets = [
     Objet("bandage", "soins", 2, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'bandage.jpeg'), taille_case),
-    Objet("trousse de soin", "soins", 4, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'kit.jpeg'), taille_case),
+    Objet("trousse_de_soin", "soins", 4, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'trousse_de_soin.jpeg'), taille_case),
     Objet("pistolet", "arme", 6, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'pistolet.jpeg'), taille_case),
-    Objet("gants de boxe", "arme", 2, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'gantsboxe.jpeg'), taille_case),
-    Objet("médicaments", "soins", 3, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'medoc.jpeg'), taille_case),
+    Objet("gants_de_boxe", "arme", 2, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'gants_de_boxe.jpeg'), taille_case),
+    Objet("medicaments", "soins", 3, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'medicaments.jpeg'), taille_case),
     Objet("pelle", "arme", 3, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'pelle.jpeg'), taille_case),
-    Objet("masque à gaz", "armure", 2, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'smoke.jpeg'), taille_case),
+    Objet("masque_à_gaz", "armure", 2, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'masque_à_gaz.jpeg'), taille_case),
     Objet("casque", "armure", 5, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'casque.jpeg'), taille_case),
-    Objet("grolles renforcées", "armure", 3, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'grolle.jpeg'), taille_case),
+    Objet("grolles_renforcées", "armure", 3, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'objet', 'grolles_renforcées.jpeg'), taille_case),
 ]

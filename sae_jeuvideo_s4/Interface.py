@@ -333,7 +333,15 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
             message_stats = fontstats.render(f"Force: {joueur.force} | Vie: {joueur.vie} | Agilité: {joueur.agilite}", True, couleur_noir)
             message_stats_rect = message_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 290 + i*85))  # Positionner chaque message en dessous du précédent
             fenetre.blit(message_stats, message_stats_rect)
-        
+            
+            # Afficher les objets du joueur s'il est vivant
+            if joueur.vie > 0:
+                for j, objet in enumerate(joueur.objets):
+                    image_objet = pygame.image.load(os.path.join(repertoire_script, 'img', 'objet', f'{objet.nom}.jpeg'))
+                    image_objet = pygame.transform.scale(image_objet, (30, 30))  # Redimensionner l'image à 30x30 pixels
+                    image_objet_rect = image_objet.get_rect(center=(largeur_plateau * taille_case // 2 - 580 + j*35, 320 + i*85))  # Positionner chaque image à côté de la précédente
+                    fenetre.blit(image_objet, image_objet_rect)       
+                     
         # Afficher des emojis flèches
         emoji_gauche = font.render("←", True, blanc_cassé)
         emoji_gauche_rect = emoji_gauche.get_rect(center=(largeur_plateau * taille_case // 2 - 50, hauteur_plateau * taille_case - 60))
