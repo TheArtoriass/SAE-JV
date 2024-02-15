@@ -304,22 +304,26 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
             joueur_skin_rect = joueur_skin.get_rect(center=(largeur_plateau * taille_case // 2 - 712, 65))
             fenetre.blit(joueur_skin, joueur_skin_rect)
             
+        # met l'image dérriere le texte cadre_stats.png
+        image_cadre_stats = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'cadre_stats.png'))
+        image_cadre_stats = pygame.transform.scale(image_cadre_stats, (image_cadre_stats.get_width() * 1, image_cadre_stats.get_height() * 1))
+        image_cadre_stats_rect = image_cadre_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 400))
+        fenetre.blit(image_cadre_stats, image_cadre_stats_rect)
+            
         # Parcourir la liste des joueurs et afficher le pseudo et les statistiques de chaque joueur
+        fontstats = pygame.font.Font(chemin_police, 15)
+        couleurs = [(255, 0, 0), (0, 0, 255), (0, 255, 0), (255, 255, 0)]  # Rouge, Bleu, Vert, Jaune
+        couleur_noir = (0, 0, 0)
+        
         for i, joueur in enumerate(joueurs):
-            message_pseudo = font.render(f"{joueur.pseudo}", True, Jaune)
-            message_pseudo_rect = message_pseudo.get_rect(center=(largeur_plateau * taille_case // 2 - 570, 120 + i*60))  # Positionner chaque message en dessous du précédent
+            couleur = couleurs[i % len(couleurs)]  # Utiliser l'indice du joueur pour sélectionner la couleur
+            message_pseudo = fontstats.render(f"Joueur {i+1} : {joueur.pseudo}", True, couleur)                    
+            message_pseudo_rect = message_pseudo.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 260 + i*85))  # Positionner chaque message en dessous du précédent
             fenetre.blit(message_pseudo, message_pseudo_rect)
 
-            message_stats = font.render(f"Force: {joueur.force} | Vie: {joueur.vie} | Agilité: {joueur.agilite}", True, Jaune)
-            message_stats_rect = message_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 570, 150 + i*60))  # Positionner chaque message en dessous du précédent
+            message_stats = fontstats.render(f"Force: {joueur.force} | Vie: {joueur.vie} | Agilité: {joueur.agilite}", True, couleur_noir)
+            message_stats_rect = message_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 290 + i*85))  # Positionner chaque message en dessous du précédent
             fenetre.blit(message_stats, message_stats_rect)
-            
-        # # met l'image dérriere le texte cadre_stats.png
-        # image_cadre_stats = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'cadre_stats.png'))
-        # image_cadre_stats = pygame.transform.scale(image_cadre_stats, (image_cadre_stats.get_width() * 0.8, image_cadre_stats.get_height() * 0.8))
-        # image_cadre_stats_rect = image_cadre_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 570, 400))
-        # fenetre.blit(image_cadre_stats, image_cadre_stats_rect)
-
         
         # Afficher des emojis flèches
         emoji_gauche = font.render("←", True, blanc_cassé)
