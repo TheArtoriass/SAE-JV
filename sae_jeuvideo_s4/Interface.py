@@ -269,7 +269,6 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         de_restant (int): Le nombre de déplacements restants pour le joueur actuel.
     """
     try:
-        Jaune = (255, 255, 0)
         blanc_cassé = (223, 242, 255)
         Noir = (0, 0, 0)
         
@@ -289,6 +288,17 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         
         fenetre.blit(message_joueur, message_joueur_rect)
         
+        font_emplacement = pygame.font.Font(chemin_police, 20)
+        # Afficher le nombre de de_restant au-dessus des flèches
+        de_restant_surface = font.render(str(de_restant), True, blanc_cassé)
+        de_restant_rect = de_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 150))
+        fenetre.blit(de_restant_surface, de_restant_rect)
+        
+        # Afficher le texte "Emplacements restants" au-dessus du nombre de de_restant
+        emplacement_restant_surface = font_emplacement.render("Emplacements restants", True, blanc_cassé)
+        emplacement_restant_rect = emplacement_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 120))
+        fenetre.blit(emplacement_restant_surface, emplacement_restant_rect)
+        
         # Afficher un message "Appuyez sur ESPACE pour lancer le dé" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
         font = pygame.font.Font(chemin_police, 20)
@@ -303,8 +313,7 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
             joueur_skin = pygame.transform.scale(joueur_skin, (45, 45))  
             joueur_skin_rect = joueur_skin.get_rect(center=(largeur_plateau * taille_case // 2 - 712, 65))
             fenetre.blit(joueur_skin, joueur_skin_rect)
-            
-        # met l'image dérriere le texte cadre_stats.png
+
         image_cadre_stats = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'cadre_stats.png'))
         image_cadre_stats = pygame.transform.scale(image_cadre_stats, (image_cadre_stats.get_width() * 1, image_cadre_stats.get_height() * 1))
         image_cadre_stats_rect = image_cadre_stats.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 400))
@@ -341,16 +350,6 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         emoji_bas = font.render("↓", True, blanc_cassé)
         emoji_bas_rect = emoji_bas.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 40))
         fenetre.blit(emoji_bas, emoji_bas_rect)
-        
-        # Afficher le nombre de de_restant au-dessus des flèches
-        de_restant_surface = font.render(str(de_restant), True, blanc_cassé)
-        de_restant_rect = de_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 110))
-        fenetre.blit(de_restant_surface, de_restant_rect)
-        
-        # Afficher le texte "Emplacements restants" au-dessus du nombre de de_restant
-        emplacement_restant_surface = font.render("Emplacements restants", True, blanc_cassé)
-        emplacement_restant_rect = emplacement_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 130))
-        fenetre.blit(emplacement_restant_surface, emplacement_restant_rect)
 
 
         # Afficher un message "Déplacez-vous avec les flèches directionnelles" juste au-dessus du texte "Joueur n joue"
