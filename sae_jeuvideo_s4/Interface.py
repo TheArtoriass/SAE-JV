@@ -273,6 +273,8 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         Noir = (0, 0, 0)
         # Définir la couleur
         couleur_bleu_clair = (162, 200, 252)
+        # Obtenir l'état des touches
+        touches = pygame.key.get_pressed()
         
         # Charger l'image du parchemin
         image_parchemin = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'nom.png'))
@@ -300,6 +302,15 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         emplacement_restant_surface = font_emplacement.render("Emplacements restants", True, blanc_cassé)
         emplacement_restant_rect = emplacement_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 120))
         fenetre.blit(emplacement_restant_surface, emplacement_restant_rect)
+        
+        # Charger l'image de la touche ECHAP
+        image_esc = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'esc.png'))
+        if touches[pygame.K_ESCAPE]:
+            arr = pygame.surfarray.pixels3d(image_esc)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_esc = pygame.transform.scale(image_esc, (80, 80))  
+        image_esc_rect = image_esc.get_rect(center=(largeur_plateau * taille_case - 10, 40))  # Positionner l'image en haut à droite
+        fenetre.blit(image_esc, image_esc_rect)
 
         # Afficher un message "Appuyez sur ESPACE pour lancer le dé" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
@@ -308,8 +319,6 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         message_rect = message.get_rect(center=(largeur_plateau * taille_case - 140, 155))
         fenetre.blit(message, message_rect)
         
-        # Obtenir l'état des touches
-        touches = pygame.key.get_pressed()
 
         # Charger l'image de la touche ESPACE
         image_espace = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'espace.png'))
