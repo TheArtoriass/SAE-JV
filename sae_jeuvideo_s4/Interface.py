@@ -1,7 +1,7 @@
 from Joueur import Joueur, Joueur1, Joueur2, Joueur3, Joueur4, Joueur5
 import tkinter.simpledialog,sys,os,pygame
 from PIL import Image, ImageTk
-
+import numpy as np
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                               Systèmes de gestion des interfaces qui n'ont pas de lien trés rapproché avec les autres fichiers
@@ -355,30 +355,53 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         message_temps_rect = message_temps.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 830))  # Positionner le message à côté de l'image de l'horloge
         fenetre.blit(message_temps, message_temps_rect)
 
+        # Obtenir l'état des touches
+        touches = pygame.key.get_pressed()
                      
-        # Afficher des emojis flèches
-        emoji_gauche = font.render("←", True, blanc_cassé)
-        emoji_gauche_rect = emoji_gauche.get_rect(center=(largeur_plateau * taille_case // 2 - 50, hauteur_plateau * taille_case - 60))
-        fenetre.blit(emoji_gauche, emoji_gauche_rect)
+        # Afficher l'image de la flèche gauche
+        image_gauche = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'gauche.png'))
+        if touches[pygame.K_LEFT]:
+            arr = pygame.surfarray.pixels3d(image_gauche)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_gauche = pygame.transform.scale(image_gauche, (60, 60))  
+        image_gauche_rect = image_gauche.get_rect(center=(largeur_plateau * taille_case - 200, hauteur_plateau * taille_case - 80))  # Positionner l'image en bas à droite
+        fenetre.blit(image_gauche, image_gauche_rect)
 
-        emoji_droite = font.render("→", True, blanc_cassé)
-        emoji_droite_rect = emoji_droite.get_rect(center=(largeur_plateau * taille_case // 2 + 50, hauteur_plateau * taille_case - 60))
-        fenetre.blit(emoji_droite, emoji_droite_rect)
+        # Afficher l'image de la flèche droite
+        image_droite = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'droite.png'))
+        if touches[pygame.K_RIGHT]:
+            arr = pygame.surfarray.pixels3d(image_droite)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_droite = pygame.transform.scale(image_droite, (60, 60))  
+        image_droite_rect = image_droite.get_rect(center=(largeur_plateau * taille_case - 80, hauteur_plateau * taille_case - 80))
+        fenetre.blit(image_droite, image_droite_rect)
 
-        emoji_haut = font.render("↑", True, blanc_cassé)
-        emoji_haut_rect = emoji_haut.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 80))
-        fenetre.blit(emoji_haut, emoji_haut_rect)
+        # Afficher l'image de la flèche haut
+        image_haut = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'haut.png'))
+        if touches[pygame.K_UP]:
+            arr = pygame.surfarray.pixels3d(image_haut)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_haut = pygame.transform.scale(image_haut, (60, 60))  
+        image_haut_rect = image_haut.get_rect(center=(largeur_plateau * taille_case - 140, hauteur_plateau * taille_case - 130))
+        fenetre.blit(image_haut, image_haut_rect)
 
-        emoji_bas = font.render("↓", True, blanc_cassé)
-        emoji_bas_rect = emoji_bas.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 40))
-        fenetre.blit(emoji_bas, emoji_bas_rect)
+        # Afficher l'image de la flèche bas
+        image_bas = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'bas.png'))
+        if touches[pygame.K_DOWN]:
+            arr = pygame.surfarray.pixels3d(image_bas)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_bas = pygame.transform.scale(image_bas, (60, 60))  
+        image_bas_rect = image_bas.get_rect(center=(largeur_plateau * taille_case - 140, hauteur_plateau * taille_case - 77))
+        fenetre.blit(image_bas, image_bas_rect)
 
+        # Définir la couleur
+        couleur_bleu_clair = (162, 200, 252)
 
         # Afficher un message "Déplacez-vous avec les flèches directionnelles" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
-        font = pygame.font.Font(chemin_police, 15)
-        message = font.render("Déplacez-vous avec les flèches directionnelles", True,  blanc_cassé)
-        message_rect = message.get_rect(center=(largeur_plateau * taille_case // 2, hauteur_plateau * taille_case - 20))
+        font = pygame.font.Font(chemin_police, 10)
+        message = font.render("Déplacez-vous avec les flèches directionnelles", True, couleur_bleu_clair)
+        message_rect = message.get_rect(center=(largeur_plateau * taille_case - 140, hauteur_plateau * taille_case - 30))
         fenetre.blit(message, message_rect)
 
         pygame.display.flip()
