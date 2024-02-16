@@ -342,15 +342,9 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
                     image_objet_rect = image_objet.get_rect(center=(largeur_plateau * taille_case // 2 - 580 + j*35, 320 + i*85))  # Positionner chaque image à côté de la précédente
                     fenetre.blit(image_objet, image_objet_rect)  
                     
-        # Charger et redimensionner l'image de l'horloge
-        image_horloge = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'horloge.png'))
-        image_horloge = pygame.transform.scale(image_horloge, (250, 150))  
-        image_horloge_rect = image_horloge.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 750))  # Positionner l'image en bas à gauche
-        fenetre.blit(image_horloge, image_horloge_rect)
-        
         couleur_blanc = (255, 255, 255)
         
-        fonttime = pygame.font.Font(chemin_police, 20)
+        fonttime = pygame.font.Font(chemin_police, 30)
         
         # Afficher le temps de jeu depuis le lancement du jeu
         temps_de_jeu = pygame.time.get_ticks() // 1000  # Convertir le temps en secondes
@@ -358,7 +352,7 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         minutes = (temps_de_jeu % 3600) // 60
         secondes = temps_de_jeu % 60
         message_temps = fonttime.render(f"{heures}h {minutes}m {secondes}s", True, couleur_blanc)
-        message_temps_rect = message_temps.get_rect(center=(largeur_plateau * taille_case // 2 - 550, 755))  # Positionner le message à côté de l'image de l'horloge
+        message_temps_rect = message_temps.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 830))  # Positionner le message à côté de l'image de l'horloge
         fenetre.blit(message_temps, message_temps_rect)
 
                      
