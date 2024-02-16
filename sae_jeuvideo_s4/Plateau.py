@@ -118,9 +118,13 @@ class Plateau:
                 # Créer une surface avec le pseudo du joueur
                 font = pygame.font.Font(None, 24)
                 text = font.render(joueur.pseudo, True, (255, 255, 255))
-                
+
+                # Calculer la position du texte pour le centrer horizontalement et le positionner au-dessus du joueur
+                x = joueur.x * self.taille_case + (self.taille_case - text.get_width()) // 2
+                y = joueur.y * self.taille_case - text.get_height()
+
                 # Dessiner le pseudo sur le plateau
-                self.surface.blit(text, (joueur.x * self.taille_case, joueur.y * self.taille_case))
+                self.surface.blit(text, (x, y))
                 
             # Dessiner les ennemis sur la surface du plateau
             for ennemi in self.ennemis:
