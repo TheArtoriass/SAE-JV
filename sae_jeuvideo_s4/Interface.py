@@ -271,6 +271,8 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
     try:
         blanc_cassé = (223, 242, 255)
         Noir = (0, 0, 0)
+        # Définir la couleur
+        couleur_bleu_clair = (162, 200, 252)
         
         # Charger l'image du parchemin
         image_parchemin = pygame.image.load(os.path.join(repertoire_script, 'img','fondjeu', 'nom.png'))
@@ -298,13 +300,25 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         emplacement_restant_surface = font_emplacement.render("Emplacements restants", True, blanc_cassé)
         emplacement_restant_rect = emplacement_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 120))
         fenetre.blit(emplacement_restant_surface, emplacement_restant_rect)
-        
+
         # Afficher un message "Appuyez sur ESPACE pour lancer le dé" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
-        font = pygame.font.Font(chemin_police, 20)
+        font = pygame.font.Font(chemin_police, 13)
         message = font.render("Appuyez sur ESPACE pour lancer le dé", True, blanc_cassé)
-        message_rect = message.get_rect(center=(largeur_plateau * taille_case // 2, 100))
+        message_rect = message.get_rect(center=(largeur_plateau * taille_case - 140, 155))
         fenetre.blit(message, message_rect)
+        
+        # Obtenir l'état des touches
+        touches = pygame.key.get_pressed()
+
+        # Charger l'image de la touche ESPACE
+        image_espace = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'espace.png'))
+        if touches[pygame.K_SPACE]:
+            arr = pygame.surfarray.pixels3d(image_espace)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+        image_espace = pygame.transform.scale(image_espace, (150, 80))  
+        image_espace_rect = image_espace.get_rect(center=(largeur_plateau * taille_case - 140, 200))  # Positionner l'image en dessous du texte
+        fenetre.blit(image_espace, image_espace_rect)
         
         # Charger l'image du skin du joueur actuel
         skin_path = joueur_actif.get_skin_path()
@@ -354,7 +368,7 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         message_temps = fonttime.render(f"{heures}h {minutes}m {secondes}s", True, couleur_blanc)
         message_temps_rect = message_temps.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 830))  # Positionner le message à côté de l'image de l'horloge
         fenetre.blit(message_temps, message_temps_rect)
-
+        
         # Obtenir l'état des touches
         touches = pygame.key.get_pressed()
                      
@@ -362,7 +376,7 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         image_gauche = pygame.image.load(os.path.join(repertoire_script, 'img', 'fondjeu', 'gauche.png'))
         if touches[pygame.K_LEFT]:
             arr = pygame.surfarray.pixels3d(image_gauche)
-            arr[..., :] = arr.mean(axis=-1, keepdims=1)
+            arr[..., :] = arr.mean(axis=-1, keepdims=1) 
         image_gauche = pygame.transform.scale(image_gauche, (60, 60))  
         image_gauche_rect = image_gauche.get_rect(center=(largeur_plateau * taille_case - 200, hauteur_plateau * taille_case - 80))  # Positionner l'image en bas à droite
         fenetre.blit(image_gauche, image_gauche_rect)
@@ -393,9 +407,6 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         image_bas = pygame.transform.scale(image_bas, (60, 60))  
         image_bas_rect = image_bas.get_rect(center=(largeur_plateau * taille_case - 140, hauteur_plateau * taille_case - 77))
         fenetre.blit(image_bas, image_bas_rect)
-
-        # Définir la couleur
-        couleur_bleu_clair = (162, 200, 252)
 
         # Afficher un message "Déplacez-vous avec les flèches directionnelles" juste au-dessus du texte "Joueur n joue"
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
