@@ -299,7 +299,7 @@ def message_interface(joueur_index,de_restant,joueur_actif,joueurs):
         fenetre.blit(de_restant_surface, de_restant_rect)
         
         # Afficher le texte "Emplacements restants" au-dessus du nombre de de_restant
-        emplacement_restant_surface = font_emplacement.render("Emplacements restants", True, blanc_cassé)
+        emplacement_restant_surface = font_emplacement.render("Déplacement restant", True, blanc_cassé)
         emplacement_restant_rect = emplacement_restant_surface.get_rect(center=(largeur_plateau * taille_case // 2 - 580, 120))
         fenetre.blit(emplacement_restant_surface, emplacement_restant_rect)
         
