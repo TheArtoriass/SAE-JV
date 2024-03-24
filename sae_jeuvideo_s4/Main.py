@@ -84,6 +84,9 @@ if __name__ == "__main__":
     #On met la musique en boucle
     pygame.mixer.music.play(-1)
     
+    # variable pour suivre le début du tour actuel
+    debut_tour = pygame.time.get_ticks()
+
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                           BOUCLE PRINCIPALE
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -102,10 +105,16 @@ if __name__ == "__main__":
                     #pygame.time.wait(2000) # Pause de 2 secondes pour voir la valeur du dé
                     de_restant = resultat_de
                     
+                    #On met à jour le début du tour
+                    debut_tour = pygame.time.get_ticks()
+                    
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                              DEPLACEMENT 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+                # Si le joueur appuie sur la touche échap, on met le jeu en pause
+                if evenement.key == pygame.K_ESCAPE:
+                    pause_active = True
+                    
                 # Si le joueur a encore des cases à parcourir et que le tour n'est pas complet
                 elif de_restant > 0 and not tour_complet:
                     if evenement.key == pygame.K_LEFT:
@@ -178,9 +187,17 @@ if __name__ == "__main__":
                         if joueur_index == 0:
                             tour_complet = True
                             
-                # Si le joueur appuie sur la touche échap, on met le jeu en pause
-                elif evenement.key == pygame.K_ESCAPE:
-                    pause_active = True
+                    
+        # Si plus d'une minute s'est écoulée et qu'il y a plus d'un joueur, passer au joueur suivant
+        if pygame.time.get_ticks() - debut_tour > 60000 and len(joueurs) > 1:
+            # On passe au joueur suivant
+            joueur_index = (joueur_index + 1) % len(joueurs)
+            joueur_actif = joueurs[joueur_index]
+            de_restant = 0
+            if joueur_index == 0:
+                tour_complet = True
+            # Réinitialiser le début du tour
+            debut_tour = pygame.time.get_ticks()
                                    
         # Si la pause est active, on affiche l'écran de pause
         if pause_active:
@@ -189,7 +206,7 @@ if __name__ == "__main__":
         else:
             if tour_complet:
                 tour_complet = False
-            
+                
         fenetre.fill(BLANC)
         fenetre.blit(plateau.dessiner(), (0, 0))
         #On affiche les différentes indications sur la fenêtre pygame
