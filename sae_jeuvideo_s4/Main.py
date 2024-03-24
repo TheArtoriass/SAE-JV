@@ -86,6 +86,9 @@ if __name__ == "__main__":
     
     # variable pour suivre le début du tour actuel
     debut_tour = pygame.time.get_ticks()
+    
+    # Avant la boucle principale
+    temps_total_pause = 0
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                           BOUCLE PRINCIPALE
@@ -188,8 +191,20 @@ if __name__ == "__main__":
                             tour_complet = True
                             
                     
-        # Si plus d'une minute s'est écoulée et qu'il y a plus d'un joueur, passer au joueur suivant
-        if pygame.time.get_ticks() - debut_tour > 60000 and len(joueurs) > 1:
+         # Si la pause est active, on affiche l'écran de pause
+        if pause_active:
+            temps_pause = pygame.time.get_ticks()
+            continuer = pause(fenetre)
+            temps_apres_pause = pygame.time.get_ticks()
+            debut_tour += temps_apres_pause - temps_pause
+            pause_active = False
+        else:
+            temps_total_pause = 0
+            if tour_complet:
+                tour_complet = False
+                
+        # Lors de la vérification du temps écoulé
+        if pygame.time.get_ticks() - debut_tour - temps_total_pause > 60000 and len(joueurs) > 1:
             # On passe au joueur suivant
             joueur_index = (joueur_index + 1) % len(joueurs)
             joueur_actif = joueurs[joueur_index]
@@ -198,15 +213,7 @@ if __name__ == "__main__":
                 tour_complet = True
             # Réinitialiser le début du tour
             debut_tour = pygame.time.get_ticks()
-                                   
-        # Si la pause est active, on affiche l'écran de pause
-        if pause_active:
-            continuer = pause(fenetre)
-            pause_active = False
-        else:
-            if tour_complet:
-                tour_complet = False
-                
+                                     
         fenetre.fill(BLANC)
         fenetre.blit(plateau.dessiner(), (0, 0))
         #On affiche les différentes indications sur la fenêtre pygame
