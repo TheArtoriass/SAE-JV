@@ -127,6 +127,7 @@ class EnnemiAnime(Ennemis):
 liste_ennemis = [
     EnnemiAnime("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'rat-idle.png'), taille_case),
     EnnemiAnime("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'rat-idle.png'), taille_case),
+    EnnemiAnime("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'rat-idle.png'), taille_case),
 
     Ennemis("Loup infecté", 0, 8, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'loup.jpeg'), taille_case),
     Ennemis("Loup infecté", 0, 8, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'loup2.jpeg'), taille_case),
@@ -139,6 +140,9 @@ liste_ennemis = [
     Ennemis("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Mutant.jpeg'), taille_case),
     Ennemis("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Mutant.jpeg'), taille_case),
     Ennemis("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Mutant.jpeg'), taille_case),
+    
+    EnnemiAnime("Expérience ratée", 0, 15, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Dragon.png'), taille_case),
+    
 ]
 
 
