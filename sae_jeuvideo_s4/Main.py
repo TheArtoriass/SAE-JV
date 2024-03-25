@@ -15,7 +15,7 @@ def lancer_de():
     """
     Lance un dé à 6 faces.
     """
-    return random.randint(1, 99)
+    return random.randint(1, 6)
 
 if __name__ == "__main__":
     

@@ -95,11 +95,38 @@ class Ennemis:
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                   Création d'une liste d'ennemis 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+class EnnemiAnime(Ennemis):
+    def __init__(self, nom, vie, force, agilite, x, y, chemin_sprite, taille_case):
+        super().__init__(nom, vie, force, agilite, x, y, chemin_sprite, taille_case)
 
+        # Charger le sprite et le diviser en frames
+        sprite_sheet = pygame.image.load(chemin_sprite).convert_alpha()
+        largeur_frame, hauteur_frame = 32, 32
+        nouvelle_largeur, nouvelle_hauteur = 42, 42
+        self.frames = []
+        for y in range(sprite_sheet.get_height() // hauteur_frame):
+            for x in range(sprite_sheet.get_width() // largeur_frame):
+                frame = pygame.Surface((largeur_frame, hauteur_frame), pygame.SRCALPHA)
+                frame.blit(sprite_sheet, (0, 0), (x * largeur_frame, y * hauteur_frame, largeur_frame, hauteur_frame))
+                frame = pygame.transform.scale(frame, (nouvelle_largeur, nouvelle_hauteur))
+                self.frames.append(frame)
+
+        self.index_frame = 0
+
+    def dessiner(self, fenetre):
+        # Obtenir un rectangle de la même taille que le sprite et le positionner
+        rect = self.frames[self.index_frame].get_rect()
+        rect.topleft = (self.x * self.taille_case, self.y * self.taille_case)
+
+        # Dessiner le sprite
+        fenetre.blit(self.frames[self.index_frame], rect)
+
+        # Passer à la frame suivante
+        self.index_frame = (self.index_frame + 1) % len(self.frames)
 
 liste_ennemis = [
-    Ennemis("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Rat_infecte.jpeg'), taille_case),
-    Ennemis("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Rat_infecte.jpeg'), taille_case),
+    EnnemiAnime("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'rat-idle.png'), taille_case),
+    EnnemiAnime("Rat infecté", 0, 6, 0,*random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'rat-idle.png'), taille_case),
 
     Ennemis("Loup infecté", 0, 8, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'loup.jpeg'), taille_case),
     Ennemis("Loup infecté", 0, 8, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'loup2.jpeg'), taille_case),
@@ -113,7 +140,6 @@ liste_ennemis = [
     Ennemis("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Mutant.jpeg'), taille_case),
     Ennemis("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Mutant.jpeg'), taille_case),
 ]
-
 
 
 
