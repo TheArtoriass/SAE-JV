@@ -1,5 +1,7 @@
 import random,os,pygame
 
+#Charger le son de combat
+combat_sound = pygame.mixer.Sound('son/combat.mp3')
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                    Systèmes de gestion de combat
@@ -21,6 +23,7 @@ class Combat:
         if self.ennemi_deja_vaincu():
             return
         try:
+            combat_sound.play()
             self.initialiser_affichage()
             self.choisir_type_attaque()
             self.boucle_combat()

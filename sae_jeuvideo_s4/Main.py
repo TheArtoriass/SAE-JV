@@ -15,7 +15,7 @@ def lancer_de():
     """
     Lance un dé à 6 faces.
     """
-    return random.randint(1, 6)
+    return random.randint(1, 99)
 
 if __name__ == "__main__":
     
@@ -99,8 +99,8 @@ if __name__ == "__main__":
     #charge le son d'event
     event = pygame.mixer.Sound('son/event.mp3')
     
-    #Charger le son de combat
-    combat_sound = pygame.mixer.Sound('son/combat.mp3')
+    #Charger le son de victoire
+    victoire = pygame.mixer.Sound('son/victoire.mp3')
 
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -183,11 +183,9 @@ if __name__ == "__main__":
                     if joueur_actif.peut_combattre:
                         for ennemi in plateau.ennemis:
                             if joueur_actif.x == ennemi.x and joueur_actif.y == ennemi.y:
-                                combat_sound.play()
                                 combat = Combat(joueur_actif, ennemi, fenetre, joueur_index)
-                                
                                 combat.lancer_combat()
-
+                                
                                 joueur_actif.position_precedente = (joueur_actif.x, joueur_actif.y)
                                 if joueur_actif.vie > 0:
                                     joueur_actif.remaining_moves = 0
@@ -199,7 +197,7 @@ if __name__ == "__main__":
                                 
                     #SI on arrive sur les coordonnées (16,18) alors le joueur actif à gagné
                     if joueur_actif.x == 24 and joueur_actif.y == 18:
-                        
+                        victoire.play()
                         end_game(joueur_index)
                         pygame.mixer.music.stop()
                         
