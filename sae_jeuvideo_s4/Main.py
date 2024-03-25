@@ -89,6 +89,16 @@ if __name__ == "__main__":
     
     # Avant la boucle principale
     temps_total_pause = 0
+    
+    # Charger le son de pas
+    pas_bruit = pygame.mixer.Sound('son/pas_bruit.wav')
+    
+    #charge le son ramasse objet 
+    ramasse_objet = pygame.mixer.Sound('son/ramasse_objet.mp3')
+    
+    #charge le son d'event
+    event = pygame.mixer.Sound('son/event.mp3')
+
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                           BOUCLE PRINCIPALE
@@ -124,18 +134,22 @@ if __name__ == "__main__":
                         if (joueur_actif.x - 1, joueur_actif.y) in chemin:
                             joueur_actif.deplacer('gauche')
                             de_restant -= 1
+                            pas_bruit.play()
                     elif evenement.key == pygame.K_RIGHT:
                         if (joueur_actif.x + 1, joueur_actif.y) in chemin:
                             joueur_actif.deplacer('droite')
                             de_restant -= 1
+                            pas_bruit.play()
                     elif evenement.key == pygame.K_UP:
                         if (joueur_actif.x, joueur_actif.y - 1) in chemin:
                             joueur_actif.deplacer('haut')
                             de_restant -= 1
+                            pas_bruit.play()
                     elif evenement.key == pygame.K_DOWN:
                         if (joueur_actif.x, joueur_actif.y + 1) in chemin:
                             joueur_actif.deplacer('bas')
                             de_restant -= 1
+                            pas_bruit.play()
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                           On regarde quand le Dé arrive à zéro s'il y a un objet ou un evenement
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,12 +159,14 @@ if __name__ == "__main__":
                         for objet in plateau.objets:
                             if objet.x == joueur_actif.x and objet.y == joueur_actif.y:
                                 joueur_actif.prendre_objet(objet)
+                                ramasse_objet.play()
                                 plateau.enlever_objet(objet)
                                 
                                     
                         # Vérifier si le joueur actuel est sur un événement
                         for evenement in plateau.carte:
                             if joueur_actif.x == evenement[0] and joueur_actif.y == evenement[1]:
+                                event.play()
                                 evenement_nom = evenement[3]
                                 evenement_methode = plateau.evenements[evenement_nom]
                                 evenement_methode(joueur_actif,plateau.ennemis)
