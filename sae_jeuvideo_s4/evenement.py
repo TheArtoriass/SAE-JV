@@ -1,5 +1,6 @@
 import random,os,sys,pygame
 from Objet import Objet, liste_objets
+import time
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                    Systèmes de gestion d'événements
@@ -360,7 +361,51 @@ def afficher_evenement(nom, image_path, texte, taille_fenetre):
         taille_fenetre (tuple): Un tuple contenant la largeur et la hauteur de la fenêtre.
     """
     try:
+        repertoire_script = os.path.dirname(__file__)
+        dossier_evenement = os.path.join(repertoire_script, 'img', 'evenement')
+
+        # Obtenir la liste des fichiers dans le dossier
+        fichiers = os.listdir(dossier_evenement)
+
+        # Initialiser Pygame
         pygame.init()
+
+        # Obtenir les dimensions de l'écran
+        infoEcran = pygame.display.Info()
+        LARGEUR_ECRAN, HAUTEUR_ECRAN = infoEcran.current_w, infoEcran.current_h
+
+        # Créer une fenêtre en plein écran
+        fenetre_evenement = pygame.display.set_mode((LARGEUR_ECRAN, HAUTEUR_ECRAN), pygame.FULLSCREEN)
+
+        # Charger l'image de fond
+        image_fondflou = os.path.join(repertoire_script, 'img','fondjeu',  'fondjeu_complet.jpg')
+        background_image = pygame.image.load(image_fondflou)
+        background_image = pygame.transform.scale(background_image, (LARGEUR_ECRAN, HAUTEUR_ECRAN))
+
+        # Boucle principale
+        start_time = time.time()
+        while time.time() - start_time < 1:  # Boucle pendant 1 secondes
+            for fichier in fichiers:
+                # Construire le chemin complet vers le fichier
+                chemin_fichier = os.path.join(dossier_evenement, fichier)
+
+                # Charger l'image avec transparence
+                image = pygame.image.load(chemin_fichier).convert_alpha()
+
+                # Obtenir un rectangle de la même taille que l'image et le centrer
+                rect = image.get_rect()
+                rect.center = (LARGEUR_ECRAN // 2, HAUTEUR_ECRAN // 2)
+
+                # Dessiner l'image de fond
+                fenetre_evenement.blit(background_image, (0, 0))
+
+                # Afficher l'image
+                fenetre_evenement.blit(image, rect)
+                pygame.display.flip()
+
+                # Attendre 0,2 seconde
+                pygame.time.wait(200)
+
         chemin_police = os.path.join(repertoire_script, 'minecraftia', 'Minecraftia-Regular.ttf')
         font = pygame.font.Font(chemin_police, 20)
 
