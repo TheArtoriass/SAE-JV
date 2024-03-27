@@ -164,14 +164,16 @@ class Combat:
 
 
             # Choisir l'image de fond en fonction de l'ennemi
-            if ennemi == "Mutant":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_golem.jpg')
+            if ennemi == "Gorille Mutant":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_gorille.png')
             elif ennemi == "Loup infecté":
                 image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_loup.jpg')
             elif ennemi == "Rat infecté":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_rat.jpg')
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_rat.png')
             elif ennemi == "Infecté":
-                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_zombie.jpg')
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_zombie.png')
+            elif ennemi == "Expérience ratée":
+                image_path = os.path.join(self.repertoire_script, 'img','combat', 'pokemon_dragon.png')
             else:
                 image_path = None
 

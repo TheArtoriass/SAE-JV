@@ -137,9 +137,9 @@ liste_ennemis = [
     EnnemiAnime("Infecté", 0, 10, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Infecte.png'), taille_case),
     EnnemiAnime("Infecté", 0, 10, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Infecte.png'), taille_case),
 
-    EnnemiAnime("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
-    EnnemiAnime("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
-    EnnemiAnime("Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
+    EnnemiAnime("Gorille Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
+    EnnemiAnime("Gorille Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
+    EnnemiAnime("Gorille Mutant", 0, 13, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Gorille.png'), taille_case),
     
     EnnemiAnime("Expérience ratée", 0, 15, 0, *random.choice(chemin), os.path.join(repertoire_script, 'img', 'ennemis', 'Dragon.png'), taille_case),
     
