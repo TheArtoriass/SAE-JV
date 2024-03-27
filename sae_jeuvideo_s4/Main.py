@@ -99,10 +99,6 @@ if __name__ == "__main__":
     #charge le son d'event
     event = pygame.mixer.Sound('son/event.mp3')
     
-    #Charger le son de victoire
-    victoire = pygame.mixer.Sound('son/victoire.mp3')
-
-
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #                                                                           BOUCLE PRINCIPALE
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -197,7 +193,6 @@ if __name__ == "__main__":
                                 
                     #SI on arrive sur les coordonnées (16,18) alors le joueur actif à gagné
                     if joueur_actif.x == 24 and joueur_actif.y == 18:
-                        victoire.play()
                         end_game(joueur_index)
                         pygame.mixer.music.stop()
                         
